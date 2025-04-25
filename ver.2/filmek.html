@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Filmek adatbázis</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script> <!-- A közös JavaScript, ha szükséges -->
+  <script src="filmek.js" defer></script> <!-- Filmekhez tartozó JavaScript -->
+</head>
+<body>
+  <header>
+    <h1>Filmek</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Főoldal</a></li>
+      <li><a href="filmek.html">Filmek</a></li>
+      <li><a href="chartjs.html">Statisztika</a></li>
+      <li><a href="ajax.html">AJAX</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <aside>
+      <p>CRUD funkciók: új film hozzáadása, meglévők szerkesztése, törlése.</p>
+    </aside>
+
+    <div class="content">
+      <h2>Filmek listája</h2>
+
+      <input type="text" id="searchInput" placeholder="Keresés bármelyik oszlop alapján...">
+
+      <table id="filmTable" border="1">
+        <thead>
+          <tr>
+            <th onclick="rendezOszlop('title')">Cím</th>
+            <th onclick="rendezOszlop('year')">Év</th>
+            <th onclick="rendezOszlop('genre')">Műfaj</th>
+            <th onclick="rendezOszlop('director')">Rendező</th>
+            <th>Műveletek</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dinamikusan feltöltve -->
+        </tbody>
+      </table>
+
+      <h3>Új film hozzáadása</h3>
+      <form id="filmForm">
+        <input type="text" id="title" placeholder="Cím" required minlength="2">
+        <input type="number" id="year" placeholder="Év" required min="1900" max="2100">
+        <input type="text" id="genre" placeholder="Műfaj" required minlength="2">
+        <input type="text" id="director" placeholder="Rendező" required minlength="2">
+        <button type="submit">Hozzáadás</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>Készítette: <strong>Tóth Csenge</strong> &nbsp; | &nbsp; Neptun kód: <strong>AIW4M8</strong> <br> 
+      <strong>Csőke Ádám </strong> &nbsp; | &nbsp; Neptun kód: <strong>NEPTUN</strong></p>
+  </footer>
+</body>
+</html>

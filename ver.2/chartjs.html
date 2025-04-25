@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Chart.js Példa</title>
+  <link rel="stylesheet" href="style.css"> <!-- A közös stíluslap -->
+  <script src="main.js" defer></script> <!-- A közös JavaScript, ha szükséges -->
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <h1>Webes Technológiák - Chart.js példa</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Főoldal</a></li>
+      <li><a href="filmek.html">Filmek</a></li>
+      <li><a href="chartjs.html" class="active">Statisztika</a></li>
+      <li><a href="ajax.html">AJAX</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <aside>
+      <p>Vonaldiagram készítése a táblázat adatai alapján.</p>
+    </aside>
+
+    <div class="content">
+      <h2>📊 Táblázat és Vonaldiagram</h2>
+      <p>Kattints a táblázat bármelyik sorára, hogy az adatokat megjelenítse vonaldiagramon!</p>
+
+      <table id="szamTabla">
+        <thead>
+          <tr>
+            <th>1. érték</th>
+            <th>2. érték</th>
+            <th>3. érték</th>
+            <th>4. érték</th>
+            <th>5. érték</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>10</td><td>20</td><td>30</td><td>40</td><td>50</td></tr>
+          <tr><td>15</td><td>25</td><td>35</td><td>45</td><td>55</td></tr>
+          <tr><td>12</td><td>22</td><td>32</td><td>42</td><td>52</td></tr>
+          <tr><td>18</td><td>28</td><td>38</td><td>48</td><td>58</td></tr>
+          <tr><td>11</td><td>21</td><td>31</td><td>41</td><td>51</td></tr>
+        </tbody>
+      </table>
+
+      <canvas id="diagram" width="400" height="200"></canvas>
+    </div>
+  </div>
+
+  <footer>
+    <p>Készítette: <strong>Tóth Csenge</strong> &nbsp; | &nbsp; Neptun kód: <strong>AIW4M8</strong> <br> 
+      <strong>Csőke Ádám </strong> &nbsp; | &nbsp; Neptun kód: <strong>NEPTUN</strong></p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const ctx = document.getElementById("diagram").getContext("2d");
+
+      let chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["1", "2", "3", "4", "5"],
+          datasets: [{
+            label: 'Kiválasztott sor adatai',
+            data: [],
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            fill: true,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top'
+            }
+          }
+        }
+      });
+
+      const rows = document.querySelectorAll("#szamTabla tbody tr");
+
+      rows.forEach((row) => {
+        row.addEventListener("click", () => {
+          const values = Array.from(row.children).map(cell => parseInt(cell.textContent));
+          chart.data.datasets[0].data = values;
+          chart.update();
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
