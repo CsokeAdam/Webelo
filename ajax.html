@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Adatok</title>
+    <link rel="stylesheet" href="style.css"> <!-- A közös stíluslap -->
+    <script src="main.js" defer></script> <!-- A közös JavaScript, ha szükséges -->
+</head>
+<body>
+
+<header>
+    <h1>AJAX Adatok</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Főoldal</a></li>
+        <li><a href="filmek.html">Filmek</a></li>
+        <li><a href="chartjs.html">Statisztika</a></li>
+        <li><a href="ajax.html" class="active">AJAX</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <aside>
+        <p>CRUD funkciók: új adat hozzáadása, meglévők szerkesztése, törlése.</p>
+    </aside>
+
+    <div class="content">
+        <h2>Adatok listája</h2>
+        
+        <table id="data-table" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Height</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Az adatok itt jelennek meg -->
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+
+<footer>
+    <p>Készítette: <strong>Tóth Csenge</strong> &nbsp; | &nbsp; Neptun kód: <strong>AIW4M8</strong> <br> 
+      <strong>Csőke Ádám </strong> &nbsp; | &nbsp; Neptun kód: <strong>NEPTUN</strong></p>
+  </footer>
+
+<!-- Az AJAX kód ide jön -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tableBody = document.querySelector("#data-table tbody");
+
+        // AJAX GET request a PHP API-hoz
+        fetch('http://localhost/beadando/api.php')
+            .then(response => response.json())
+            .then(data => {
+                // Tábla feltöltése az API-ból kapott adatokkal
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.id}</td>
+                        <td>${item.name}</td>
+                        <td>${item.height}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Hiba történt:', error));
+    });
+</script>
+
+</body>
+</html>
